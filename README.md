@@ -2,6 +2,8 @@
 
 A CRM admin dashboard built with **Angular 21**: customers, a drag-and-drop deals pipeline, revenue analytics and role-based access.
 
+**Live demo: [pulse-crm-rouge-xi.vercel.app](https://pulse-crm-rouge-xi.vercel.app)** (use one of the demo accounts below)
+
 The backend is mocked inside the app (an HTTP interceptor that behaves like a REST API), so it runs with no server and can be deployed as a static site.
 
 ![Dashboard](docs/screenshots/dashboard-dark.png)
