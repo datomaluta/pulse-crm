@@ -1,59 +1,77 @@
-# PulseCrm
+# Pulse CRM
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.30.
+A CRM admin dashboard built with **Angular 21**: customers, a drag-and-drop deals pipeline, revenue analytics and role-based access.
 
-## Development server
+The backend is mocked inside the app (an HTTP interceptor that behaves like a REST API), so it runs with no server and can be deployed as a static site.
 
-To start a local development server, run:
+<!-- Add screenshots here: docs/dashboard.png, docs/customers.png, docs/deals.png -->
 
-```bash
-ng serve
-```
+## Demo accounts
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+| Role      | Email               | Password   |
+| --------- | ------------------- | ---------- |
+| Admin     | `admin@pulsecrm.io` | `demo1234` |
+| Sales rep | `sales@pulsecrm.io` | `demo1234` |
 
-## Code scaffolding
+The login page also has one-click buttons for both.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Features
 
-```bash
-ng generate component component-name
-```
+- **Dashboard**: KPI cards, a 12-month revenue chart, customers by status, pipeline by stage and an activity feed. The charts are plain SVG components with no chart library.
+- **Customers**
+  - Search, status filters, sorting and pagination, all kept in the URL so any view can be shared or bookmarked
+  - Debounced search (RxJS `debounceTime` + `switchMap`, so stale requests are cancelled)
+  - Detail page with the customer's deals
+  - Create and edit form with typed reactive forms, an async "email already taken" validator, a cross-field rule (paying customers need MRR > 0), a tag input and an unsaved-changes guard
+- **Deals pipeline**: Kanban board built on Angular CDK drag-and-drop, with optimistic updates that roll back if the API call fails
+- **Auth & roles**: token interceptor, `authGuard`, `guestGuard` and `roleGuard('admin')`. Sales reps can't delete customers or open Settings, and the API rejects those requests too
+- **Error handling**: loading skeletons, empty states, inline error and retry for reads, toasts for failed writes, auto sign-out on 401
+- **Settings**: light/dark theme, plus switches to slow down the fake API or make about 30% of requests fail, so loading and error states are easy to try
+- Responsive down to 360px, keyboard friendly (`/` focuses search), dark mode without a flash on load
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Tech stack
 
-```bash
-ng generate --help
-```
+- Angular 21: standalone components, signals, `input()`, `rxResource`, the new control flow (`@if`, `@for`, `@let`), zoneless change detection, lazy-loaded routes
+- RxJS for streams (search, URL-driven loading, async validation)
+- Angular CDK (drag & drop)
+- SCSS with CSS custom properties for theming
+- TypeScript in strict mode
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+## Getting started
 
 ```bash
-ng e2e
+npm install
+npm start
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Open http://localhost:4200.
 
-## Additional Resources
+```bash
+npm run build   # production build in dist/pulse-crm
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Project structure
+
+```
+src/app
+├── core/                 # app-wide services, models, guards, interceptors
+│   ├── auth/             # AuthService, guards, token interceptor
+│   ├── http/             # error interceptor + helpers
+│   ├── mock/             # fake REST backend + seeded data
+│   └── api.ts            # typed API clients (customers, deals, stats)
+├── shared/
+│   ├── charts/           # SVG area + donut charts
+│   ├── pipes/            # currency / relative time
+│   └── ui/               # icon, avatar, badge, toasts, confirm dialog
+├── layout/shell.ts       # sidebar + topbar
+└── features/             # lazy-loaded pages
+    ├── dashboard/
+    ├── customers/
+    ├── deals/
+    ├── settings/
+    └── login/
+```
+
+## Connecting a real API
+
+All data goes through `HttpClient` to `/api/*`. To use a real backend, remove `mockBackendInterceptor` from `app.config.ts` and point the requests at your API (or add a dev proxy). The components don't need to change.
