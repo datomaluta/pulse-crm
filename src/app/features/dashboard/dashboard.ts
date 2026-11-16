@@ -95,6 +95,7 @@ const ACTIVITY_ICON: Record<ActivityType, IconName> = {
             <div class="card-body">
               <app-area-chart
                 [data]="s.revenueByMonth"
+                [height]="330"
                 ariaLabel="Monthly revenue for the last 12 months"
               />
             </div>
