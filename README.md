@@ -4,7 +4,19 @@ A CRM admin dashboard built with **Angular 21**: customers, a drag-and-drop deal
 
 The backend is mocked inside the app (an HTTP interceptor that behaves like a REST API), so it runs with no server and can be deployed as a static site.
 
-<!-- Add screenshots here: docs/dashboard.png, docs/customers.png, docs/deals.png -->
+![Dashboard](docs/screenshots/dashboard-dark.png)
+
+| Customers | Customer detail |
+| --- | --- |
+| ![Customers](docs/screenshots/customers.png) | ![Customer detail](docs/screenshots/customer-detail.png) |
+
+| Deals pipeline | Light theme |
+| --- | --- |
+| ![Deals](docs/screenshots/deals.png) | ![Light theme](docs/screenshots/dashboard-light.png) |
+
+| Customer form | Mobile |
+| --- | --- |
+| ![Customer form](docs/screenshots/customer-form.png) | ![Mobile](docs/screenshots/mobile-dashboard.png) |
 
 ## Demo accounts
 
