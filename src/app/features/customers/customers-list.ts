@@ -233,13 +233,14 @@ function parseQuery(params: ParamMap): CustomerQuery {
                 <div class="pager-controls">
                   <select
                     class="select page-size"
-                    [value]="p.pageSize"
                     (change)="update({ pageSize: +$any($event.target).value, page: 1 })"
                     aria-label="Rows per page"
                   >
-                    <option [value]="10">10 / page</option>
-                    <option [value]="25">25 / page</option>
-                    <option [value]="50">50 / page</option>
+                    @for (size of pageSizes; track size) {
+                      <option [value]="size" [selected]="size === p.pageSize">
+                        {{ size }} / page
+                      </option>
+                    }
                   </select>
                   <button
                     class="btn-icon"
@@ -484,6 +485,7 @@ export class CustomersListPage {
   protected readonly statuses = CUSTOMER_STATUSES;
   protected readonly skeletonRows = Array.from({ length: 8 }, (_, i) => i);
   protected readonly min = Math.min;
+  protected readonly pageSizes = [10, 25, 50];
   protected readonly columns: { field: SortField; label: string; cls?: string }[] = [
     { field: 'name', label: 'Customer' },
     { field: 'company', label: 'Company', cls: 'hide-sm' },
