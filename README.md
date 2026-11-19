@@ -1,6 +1,6 @@
 # Pulse CRM
 
-A CRM admin dashboard built with **Angular 21**: customers, a drag-and-drop deals pipeline, revenue analytics and role-based access.
+A CRM admin dashboard built with **Angular 22**: customers, a drag-and-drop deals pipeline, revenue analytics and role-based access.
 
 **Live demo: [pulse-crm-rouge-xi.vercel.app](https://pulse-crm-rouge-xi.vercel.app)** (use one of the demo accounts below)
 
@@ -45,13 +45,15 @@ The login page also has one-click buttons for both.
 
 ## Tech stack
 
-- Angular 21: standalone components, signals, `input()`, `rxResource`, the new control flow (`@if`, `@for`, `@let`), zoneless change detection, lazy-loaded routes
+- Angular 22: standalone components, signals, `input()`, `rxResource`, the new control flow (`@if`, `@for`, `@let`), zoneless change detection, lazy-loaded routes
 - RxJS for streams (search, URL-driven loading, async validation)
 - Angular CDK (drag & drop)
 - SCSS with CSS custom properties for theming
 - TypeScript in strict mode
 
 ## Getting started
+
+Requires Node.js 24.15+ (or 22.22+).
 
 ```bash
 npm install

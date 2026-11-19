@@ -25,7 +25,7 @@ import { Icon } from '../../shared/ui/icon';
             <li><app-icon name="check" /> Role-based access for admins and reps</li>
           </ul>
         </div>
-        <p class="foot">Portfolio demo · Angular 21 · Signals · RxJS</p>
+        <p class="foot">Portfolio demo · Angular 22 · Signals · RxJS</p>
       </section>
 
       <section class="form-panel">
